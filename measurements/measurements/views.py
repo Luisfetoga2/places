@@ -13,7 +13,12 @@ def check_variable(data):
     variables = r.json()
     for variable in variables:
         if data["variable"] == variable["id"]:
-            return True
+            # Revisar que el lugar exista
+            r2 = requests.get(settings.PATH_PLACES, headers={"Accept":"application/json"})
+            places = r2.json()
+            for place in places:
+                if data["place"] == place["name"]:
+                    return True
     return False
 
 def MeasurementList(request):
